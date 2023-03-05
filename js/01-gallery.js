@@ -22,4 +22,10 @@ gallery.addEventListener('click', (e) => {
          
 })
 
+document.addEventListener('keydown', evt => {
+    if (evt.key === 'Escape') {
+        modal.innerHTML = '';
+    }
+});
+
 console.log(galleryItems);
