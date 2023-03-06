@@ -1,17 +1,16 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-
 const gallery = document.querySelector('.gallery');
 
 galleryItems.map(element => {
     gallery.innerHTML += `<a class="gallery__link" href="${element.original}" onclick="return false;"><img class="gallery__image" src="${element.preview}" alt="${element.description}"/>`
 })
 
-const instance = gallery.insertAdjacentHTML('beforebegin', '<div class="modal"></div>')
+gallery.insertAdjacentHTML('beforebegin', '<div class="modal"></div>')
 
 const modal = document.querySelector('.modal')
 
-gallery.addEventListener('click', (e) => {
+gallery.addEventListener('mouseover', (e) => {
 
     if (e.target.className !== 'gallery__image') {
         return;
@@ -19,13 +18,10 @@ gallery.addEventListener('click', (e) => {
 
     e.target.src = e.target.parentNode.href
     modal.innerHTML = e.target.outerHTML
-         
 })
 
-document.addEventListener('keydown', evt => {
-    if (evt.key === 'Escape') {
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
         modal.innerHTML = '';
     }
 });
-
-console.log(galleryItems);
