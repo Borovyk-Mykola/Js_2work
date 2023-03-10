@@ -3,25 +3,22 @@ import { galleryItems } from './gallery-items.js';
 const gallery = document.querySelector('.gallery');
 
 galleryItems.map(element => {
-    gallery.innerHTML += `<a class="gallery__link" href="${element.original}" onclick="return false;"><img class="gallery__image" src="${element.preview}" alt="${element.description}"/>`
+    gallery.innerHTML += `<a class="gallery__link" href="${element.original}" onclick="return false;"><img class="gallery__image" src="${element.preview}" data-source="${element.original}" alt="${element.description}"/>`
 })
 
-gallery.insertAdjacentHTML('beforebegin', '<div class="modal"></div>')
+const instance = basicLightbox.create(
+  `<img width="1280" height="auto" src="">`
+);
 
-const modal = document.querySelector('.modal')
-
-gallery.addEventListener('mouseover', (e) => {
-
-    if (e.target.className !== 'gallery__image') {
+gallery.addEventListener('click', (e) => {
+    if (e.target.className !== 'gallery__image')
         return;
-    }
-
-    e.target.src = e.target.parentNode.href
-    modal.innerHTML = e.target.outerHTML
+    instance.element().querySelector('img').src = e.target.dataset.source;
+    instance.show();
 })
 
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-        modal.innerHTML = '';
+        instance.close();
     }
 });
